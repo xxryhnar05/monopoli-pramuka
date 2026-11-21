@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+@theme {
+  --color-forest: #174d36;
+  --color-deep: #103629;
+  --color-cream: #f4ebd8;
+  --color-cream-dark: #e8dbbf;
+  --color-gold: #d6a64f;
+  --color-gold-light: #ecc97f;
+  --color-wood: #805536;
+  --color-sky: #5c9bc7;
+  --color-ink: #1d2b24;
+
+  --font-display: var(--font-bricolage), "Trebuchet MS", sans-serif;
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+
+  --shadow-soft: 0 10px 30px -12px rgb(16 54 41 / 0.35);
+  --shadow-card: 0 18px 40px -18px rgb(16 54 41 / 0.55);
+  --shadow-glow: 0 0 0 3px rgb(214 166 79 / 0.55), 0 12px 30px -10px rgb(214 166 79 / 0.6);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 9s ease-in-out infinite;
+  --animate-spin-slow: turn 18s linear infinite;
+  --animate-pulse-ring: pulse-ring 1.6s ease-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(2deg); }
+  }
+  @keyframes turn {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgb(214 166 79 / 0.7); }
+    100% { box-shadow: 0 0 0 14px rgb(214 166 79 / 0); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-deep);
+  }
+}
+
+@layer components {
+  .paper {
+    background-color: var(--color-cream);
+    background-image:
+      radial-gradient(circle at 20% 10%, rgb(255 255 255 / 0.55), transparent 40%),
+      radial-gradient(circle at 80% 90%, rgb(214 166 79 / 0.12), transparent 45%);
+  }
+  .topo {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23F4EBD8' stroke-opacity='0.07' stroke-width='1.2'%3E%3Cpath d='M20 120c30-40 70-50 100-20s70 20 100-20'/%3E%3Cpath d='M0 160c40-30 80-30 120 0s80 30 120 0'/%3E%3Cpath d='M10 70c40-30 80-10 110 10s80 10 110-20'/%3E%3Cpath d='M30 210c30-20 60-20 90 0s60 20 90 0'/%3E%3Cpath d='M0 30c30 10 60 0 90-15s70-10 100 10'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-b from-gold-light to-gold px-5 py-3 font-display font-bold text-deep shadow-soft transition hover:-translate-y-0.5 hover:shadow-glow active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-soft;
+  }
+  .btn-green {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-b from-forest to-deep px-5 py-3 font-display font-bold text-cream shadow-soft transition hover:-translate-y-0.5 hover:brightness-110 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl border-2 border-forest/20 bg-white/60 px-5 py-3 font-display font-bold text-forest transition hover:border-forest/50 hover:bg-white disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .card-paper {
+    @apply rounded-3xl border border-wood/15 bg-white/80 shadow-soft backdrop-blur;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-bold uppercase tracking-wider text-forest/70;
+  }
+  .input {
+    @apply w-full rounded-xl border-2 border-forest/15 bg-white px-3.5 py-2.5 text-ink outline-none transition focus:border-gold focus:ring-4 focus:ring-gold/20;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold;
+  }
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(23 77 54 / 0.35) transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
